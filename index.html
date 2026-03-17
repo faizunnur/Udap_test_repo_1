@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>udap_test_1</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
+      padding: 40px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #238636, #2ea043);
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 48px 56px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff, #58a6ff);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    .icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #1f6feb, #58a6ff);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      box-shadow: 0 4px 16px rgba(88, 166, 255, 0.3);
+    }
+
+    .icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #ffffff;
+    }
+
+    .project-name {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .project-name span {
+      background: linear-gradient(135deg, #58a6ff, #bc8cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #58a6ff, #bc8cff);
+      border-radius: 2px;
+      margin: 20px auto;
+    }
+
+    .repo-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-top: 4px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+    }
+
+    .repo-section:hover {
+      border-color: #58a6ff;
+      box-shadow: 0 0 12px rgba(88, 166, 255, 0.15);
+    }
+
+    .repo-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8b949e;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .repo-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #58a6ff;
+      word-break: break-all;
+    }
+
+    .repo-icon {
+      flex-shrink: 0;
+    }
+
+    .repo-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #8b949e;
+    }
+
+    .repo-text {
+      text-align: left;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid #21262d;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #e6edf3;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid #21262d;
+      background: #0d1117;
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: #8b949e;
+      letter-spacing: 0.03em;
+    }
+
+    .footer-text strong {
+      color: #c9d1d9;
+      font-weight: 600;
+    }
+
+    .footer-dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: linear-gradient(135deg, #58a6ff, #bc8cff);
+      border-radius: 50%;
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 36px 28px;
+      }
+      .project-name {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="badge">&#9679; Active Project</div>
+
+    <div class="card">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+
+      <h1 class="project-name"><span>udap_test_1</span></h1>
+
+      <div class="divider"></div>
+
+      <div class="repo-section">
+        <div class="repo-icon">
+          <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/>
+          </svg>
+        </div>
+        <div class="repo-text">
+          <span class="repo-label">Repository</span>
+          <div class="repo-name">Udap_test_repo_1</div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value">v1.0</div>
+          <div class="stat-label">Version</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Active</div>
+          <div class="stat-label">Status</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">2025</div>
+          <div class="stat-label">Year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">
+      <span class="footer-dot"></span>
+      Developed by <strong>Royal Bengal AI</strong>
+      <span class="footer-dot"></span>
+    </p>
+  </footer>
+
+</body>
+</html>
